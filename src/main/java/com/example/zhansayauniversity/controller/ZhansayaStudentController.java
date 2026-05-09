@@ -40,4 +40,13 @@ public class ZhansayaStudentController {
     public String deleteStudent(@PathVariable Long id) {
         return "Student with ID " + id + " was deleted!";
     }
+
+    // --- ЭНДПОИНТ ДЛЯ ПАГИНАЦИИ ---
+    @GetMapping("/paged")
+    public org.springframework.data.domain.Page<ZhansayaStudent> getStudentsPaged(
+            @org.springframework.web.bind.annotation.RequestParam(defaultValue = "0") int page,
+            @org.springframework.web.bind.annotation.RequestParam(defaultValue = "5") int size,
+            @org.springframework.web.bind.annotation.RequestParam(defaultValue = "id") String sortBy) {
+        return studentService.getAllStudentsPaged(page, size, sortBy);
+    }
 }
