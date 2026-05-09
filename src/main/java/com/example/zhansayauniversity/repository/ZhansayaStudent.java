@@ -1,4 +1,4 @@
-package com.example.zhansayauniversity.entity;
+package com.example.zhansayauniversity.repository;
 
 import jakarta.persistence.*;
 import lombok.*;
