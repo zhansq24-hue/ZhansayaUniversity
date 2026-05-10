@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Блок базы данных
+  db:
+    image: postgres:15
+    container_name: zhansaya_db
+    environment:
+      POSTGRES_DB: university_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d university_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Блок твоего Spring Boot приложения
+  app:
+    build: .
+    container_name: zhansaya_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy # Ждет, пока база будет готова
+    environment:
+      # Эти настройки перекроют application.properties внутри контейнера
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/university_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    healthcheck:
+      # Проверка, что приложение реально запустилось
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
