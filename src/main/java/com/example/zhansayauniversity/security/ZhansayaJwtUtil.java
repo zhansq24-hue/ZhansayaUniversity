@@ -16,7 +16,7 @@ import java.util.function.Function;
 @Service
 public class ZhansayaJwtUtil {
 
-    // Ключ должен быть длинным и сложным! Минимум 32 символа.
+    // Ключ должен быть длинным и сложным Минимум 32 символа.
     private final String SECRET_STRING = "Zhansaya_University_Super_Secret_Key_2026_Secure_Version_Safe";
     private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_STRING.getBytes(StandardCharsets.UTF_8));
 

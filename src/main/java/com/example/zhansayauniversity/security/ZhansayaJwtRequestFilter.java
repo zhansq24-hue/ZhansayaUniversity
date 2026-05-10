@@ -34,15 +34,17 @@ public class ZhansayaJwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
 
-        // Проверяем заголовок на наличие Bearer токена
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7);
+            // 1. Убираем "Bearer "
+            // 2. trim() уберет случайные пробелы в начале и конце
+            // 3. replace еще раз подстрахует от двойного "Bearer Bearer"
+            jwt = authorizationHeader.substring(7).trim().replace("Bearer ", "");
+
             try {
                 username = jwtUtil.extractUsername(jwt);
-            } catch (ExpiredJwtException e) {
-                logger.warn("JWT Token has expired");
+                logger.info("Username успешно извлечен: " + username); // Добавь это для проверки в логах
             } catch (Exception e) {
-                logger.error("Unable to get JWT Token");
+                logger.error("Ошибка в JwtUtil: " + e.getMessage());
             }
         }
 
