@@ -1,8 +1,11 @@
 package com.example.zhansayauniversity.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "zhansaya_professors")
@@ -18,6 +21,6 @@ public class ZhansayaProfessor {
     private String academicTitle; // например, PhD или Master
     @ManyToOne
     @JoinColumn(name = "department_id")
-    @JsonBackReference
+    @JsonIgnore
     private ZhansayaDepartment department;
 }

@@ -1,7 +1,11 @@
 package com.example.zhansayauniversity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "zhansaya_departments")
@@ -14,4 +18,8 @@ public class ZhansayaDepartment {
 
     private String name;
     private String officeLocation;
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonIgnore
+    private List<ZhansayaProfessor> professors;
 }

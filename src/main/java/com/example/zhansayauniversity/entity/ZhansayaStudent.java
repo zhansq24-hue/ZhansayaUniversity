@@ -1,5 +1,7 @@
 package com.example.zhansayauniversity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,5 +29,14 @@ public class ZhansayaStudent {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private ZhansayaStudentProfile profile;
+    @ManyToMany
+    @JoinTable(
+            name = "zhansaya_student_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    @JsonManagedReference
+    @JsonIgnore
+    private Set<ZhansayaCourse> courses;
 
 }

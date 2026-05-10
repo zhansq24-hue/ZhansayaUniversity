@@ -1,5 +1,6 @@
 package com.example.zhansayauniversity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,5 +15,6 @@ public class ZhansayaStudentProfile {
     private String phoneNumber;   // Номер телефона
     private String address;       // Адрес проживания
     @OneToOne(mappedBy = "profile")
+    @JsonIgnore
     private ZhansayaStudent student;
 }

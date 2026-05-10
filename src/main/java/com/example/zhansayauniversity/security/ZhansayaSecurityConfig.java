@@ -3,6 +3,7 @@ package com.example.zhansayauniversity.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,20 +29,16 @@ public class ZhansayaSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.disable()) // Отключаем для тестов, чтобы не было ошибок 403
                 .authorizeHttpRequests(auth -> auth
-                        // Разрешаем доступ к Swagger и авторизации без токена
+                        // Открываем доступ к Swagger и документации
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        // Все остальные запросы требуют JWT
+                        // Все остальные запросы требуют логин и пароль
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .httpBasic(Customizer.withDefaults());
 
-        // Добавляем твой JWT фильтр в цепочку
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build(); // Вот здесь ставится точка с запятой
+        return http.build();
     }
 
     @Bean
@@ -53,7 +50,11 @@ public class ZhansayaSecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+
         return authenticationManagerBuilder.build();
     }
 }
