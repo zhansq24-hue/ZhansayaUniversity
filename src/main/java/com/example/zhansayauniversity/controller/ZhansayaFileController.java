@@ -1,15 +1,18 @@
 package com.example.zhansayauniversity.controller;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/zhansaya/files")
 public class ZhansayaFileController {
-
+    private static final Logger logger = LoggerFactory.getLogger(ZhansayaFileController.class);
     /**
      * Эндпоинт для загрузки файла (UPLOAD)
      * В учебных целях мы просто подтверждаем получение файла.

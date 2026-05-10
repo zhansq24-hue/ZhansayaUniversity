@@ -23,22 +23,22 @@ public class ZhansayaStudentController {
     }
 
 
-    // 2. POST - Создание студента
+    // 2. POST - Создание студента (Теперь по-настоящему!)
     @PostMapping
-    public String createStudent(@Valid @RequestBody ZhansayaStudentDTO studentDTO) {
-        return "Student " + studentDTO.getFirstName() + " was created!";
+    public ZhansayaStudent createStudent(@Valid @RequestBody ZhansayaStudentDTO studentDTO) {
+        return studentService.createStudent(studentDTO); // Вызываем сервис для сохранения
     }
 
-    // 3. PUT - Обновление студента (используем Path Variable {id})
+    // 3. PUT - Обновление студента
     @PutMapping("/{id}")
-    public String updateStudent(@PathVariable Long id, @Valid @RequestBody ZhansayaStudentDTO studentDTO) {
-        return "Student with ID " + id + " was updated!";
+    public ZhansayaStudent updateStudent(@PathVariable Long id, @Valid @RequestBody ZhansayaStudentDTO studentDTO) {
+        return studentService.updateStudent(id, studentDTO); // Теперь обновляет в базе
     }
 
     // 4. DELETE - Удаление студента
     @DeleteMapping("/{id}")
-    public String deleteStudent(@PathVariable Long id) {
-        return "Student with ID " + id + " was deleted!";
+    public void deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id); // Теперь реально удаляет из базы
     }
 
     // --- ЭНДПОИНТ ДЛЯ ПАГИНАЦИИ ---

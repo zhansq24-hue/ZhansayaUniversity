@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @OpenAPIDefinition(
@@ -19,7 +20,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
         scheme = "bearer",
         bearerFormat = "JWT"
 )
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableAsync
 public class ZhansayaUniversityApplication {
     public static void main(String[] args) {

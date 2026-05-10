@@ -16,7 +16,6 @@ import java.io.IOException;
 
 @Component
 public class ZhansayaJwtRequestFilter extends OncePerRequestFilter {
-
     private final ZhansayaUserDetailsService userDetailsService;
     private final ZhansayaJwtUtil jwtUtil;
 
