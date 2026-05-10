@@ -19,12 +19,12 @@ public class ZhansayaStudentService {
 
     private final ZhansayaStudentRepository studentRepository;
 
-    // 1. Старый метод (оставляем, он работает)
+
     public List<ZhansayaStudent> getAllStudents() {
         return studentRepository.findAll();
     }
 
-    // 2. --- НОВЫЙ МЕТОД (Пагинация и Сортировка) ---
+    // (Пагинация и Сортировка) ---
     public Page<ZhansayaStudent> getAllStudentsPaged(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return studentRepository.findAll(pageable);
