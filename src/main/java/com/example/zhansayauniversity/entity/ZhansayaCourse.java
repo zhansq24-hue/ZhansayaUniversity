@@ -1,5 +1,6 @@
 package com.example.zhansayauniversity.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,5 +19,6 @@ public class ZhansayaCourse {
     private String courseCode;
     private Integer credits;
     @ManyToMany(mappedBy = "courses")
+    @JsonBackReference
     private Set<ZhansayaStudent> students;
 }

@@ -1,5 +1,6 @@
 package com.example.zhansayauniversity.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,7 +31,9 @@ public class ZhansayaStudent {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
+    @JsonManagedReference // Это ПРЕПЯТСТВУЕТ циклической ошибке в Swagger/JSON
     private Set<ZhansayaCourse> courses;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private ZhansayaStudentProfile profile;
