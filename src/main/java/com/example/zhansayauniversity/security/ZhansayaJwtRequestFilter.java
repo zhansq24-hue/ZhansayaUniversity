@@ -18,9 +18,9 @@ import java.io.IOException;
 public class ZhansayaJwtRequestFilter extends OncePerRequestFilter {
 
     private final ZhansayaUserDetailsService userDetailsService;
-    private final zhansayauniversity.security.ZhansayaJwtUtil jwtUtil;
+    private final ZhansayaJwtUtil jwtUtil;
 
-    public ZhansayaJwtRequestFilter(ZhansayaUserDetailsService userDetailsService, zhansayauniversity.security.ZhansayaJwtUtil jwtUtil) {
+    public ZhansayaJwtRequestFilter(ZhansayaUserDetailsService userDetailsService, ZhansayaJwtUtil jwtUtil) {
         this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
     }
