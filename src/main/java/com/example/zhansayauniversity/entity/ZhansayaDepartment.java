@@ -1,6 +1,8 @@
 package com.example.zhansayauniversity.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import lombok.*;
 
 import java.util.List;
@@ -18,4 +20,6 @@ public class ZhansayaDepartment {
     private String officeLocation;
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<ZhansayaProfessor> professors;
+
+
 }

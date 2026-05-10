@@ -1,5 +1,6 @@
 package com.example.zhansayauniversity.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,5 +18,6 @@ public class ZhansayaProfessor {
     private String academicTitle; // например, PhD или Master
     @ManyToOne
     @JoinColumn(name = "department_id")
+    @JsonBackReference
     private ZhansayaDepartment department;
 }
