@@ -15,4 +15,7 @@ public class ZhansayaProfessor {
     private String firstName;
     private String lastName;
     private String academicTitle; // например, PhD или Master
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private ZhansayaDepartment department;
 }

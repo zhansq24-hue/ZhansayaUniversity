@@ -3,6 +3,8 @@ package com.example.zhansayauniversity.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "zhansaya_departments")
 @Getter @Setter
@@ -14,4 +16,6 @@ public class ZhansayaDepartment {
 
     private String name;
     private String officeLocation;
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    private List<ZhansayaProfessor> professors;
 }

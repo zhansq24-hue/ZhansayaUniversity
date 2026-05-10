@@ -3,6 +3,8 @@ package com.example.zhansayauniversity.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "zhansaya_courses")
 @Getter @Setter
@@ -15,4 +17,6 @@ public class ZhansayaCourse {
     private String courseName;
     private String courseCode;
     private Integer credits;
+    @ManyToMany(mappedBy = "courses")
+    private Set<ZhansayaStudent> students;
 }

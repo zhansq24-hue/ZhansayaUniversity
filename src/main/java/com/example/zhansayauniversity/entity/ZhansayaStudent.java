@@ -3,6 +3,8 @@ package com.example.zhansayauniversity.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "student") // Теперь точно совпадает с pgAdmin!
 @Getter
@@ -22,4 +24,11 @@ public class ZhansayaStudent {
     private String lastName;
 
     private String email;
+    @ManyToMany
+    @JoinTable(
+            name = "zhansaya_student_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private Set<ZhansayaCourse> courses;
 }
