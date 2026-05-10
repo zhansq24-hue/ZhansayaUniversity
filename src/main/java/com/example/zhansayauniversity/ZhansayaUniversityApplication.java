@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
+
 @OpenAPIDefinition(
         info = @Info(title = "University Management API", version = "1.0"),
         security = @SecurityRequirement(name = "bearerAuth")
@@ -18,6 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         bearerFormat = "JWT"
 )
 @SpringBootApplication
+@EnableAsync
 public class ZhansayaUniversityApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZhansayaUniversityApplication.class, args);
