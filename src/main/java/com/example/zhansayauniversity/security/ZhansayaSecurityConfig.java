@@ -27,10 +27,12 @@ public class ZhansayaSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+                .csrf(AbstractHttpConfigurer::disable) // ОБЯЗАТЕЛЬНО: отключаем CSRF для тестов
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // Разрешаем вход и Swagger
-                        .anyRequest().authenticated() // Остальное защищаем
+                        .requestMatchers("/api/auth/**").permitAll() // Разрешаем всем вход
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Разрешаем Swagger
+                        .anyRequest().authenticated() // Все остальное только по токену
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
