@@ -31,4 +31,7 @@ public class ZhansayaStudent {
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     private Set<ZhansayaCourse> courses;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    private ZhansayaStudentProfile profile;
 }
