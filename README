@@ -1,0 +1,15 @@
+# Zhansaya University Management System
+
+## Project Overview
+This is a Spring Boot application for managing university data with JWT security.
+
+## Tech Stack
+- Java 17
+- Spring Boot 3
+- Spring Security (JWT)
+- Swagger UI (OpenAPI 3.0)
+
+## How to run
+1. Clone the repository.
+2. Run `./gradlew bootRun`.
+3. Open `http://localhost:8080/swagger-ui/index.html`
