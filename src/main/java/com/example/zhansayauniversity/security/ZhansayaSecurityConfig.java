@@ -36,7 +36,7 @@ public class ZhansayaSecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         // 2. РАЗРЕШАЕМ доступ к контроллеру авторизации
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/students/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/students/**").authenticated()
                         // 3. Все остальное защищаем
                         .anyRequest().authenticated()
 
