@@ -31,13 +31,17 @@ public class ZhansayaSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Отключаем для тестов, чтобы не было ошибок 403
                 .authorizeHttpRequests(auth -> auth
-                        // Открываем доступ к Swagger и документации
+                        // 1. Разрешаем Swagger
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        // Все остальные запросы требуют логин и пароль
+                        // 2. РАЗРЕШАЕМ доступ к контроллеру авторизации (замени путь на свой, если он другой)
+                        .requestMatchers("/api/auth/**").permitAll()
+                        // 3. Все остальное защищаем
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());
-
+                // .httpBasic(Customizer.withDefaults()) // <-- УДАЛИ ИЛИ ЗАКОММЕНТИРУЙ ЭТУ СТРОКУ
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Так как мы используем JWT
+                );
         return http.build();
     }
 

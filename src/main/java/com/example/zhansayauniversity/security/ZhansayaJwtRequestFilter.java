@@ -34,9 +34,7 @@ public class ZhansayaJwtRequestFilter extends OncePerRequestFilter {
         String jwt = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // 1. Убираем "Bearer "
-            // 2. trim() уберет случайные пробелы в начале и конце
-            // 3. replace еще раз подстрахует от двойного "Bearer Bearer"
+
             jwt = authorizationHeader.substring(7).trim().replace("Bearer ", "");
 
             try {

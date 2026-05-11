@@ -12,4 +12,4 @@ This is a Spring Boot application for managing university data with JWT security
 ## How to run
 1. Clone the repository.
 2. Run `./gradlew bootRun`.
-3. Open `http://localhost:8080/swagger-ui/index.html`
+3. Open `http://localhost:8081/swagger-ui/index.html`
