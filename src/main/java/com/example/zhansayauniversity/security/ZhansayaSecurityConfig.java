@@ -2,6 +2,7 @@ package com.example.zhansayauniversity.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -33,15 +34,17 @@ public class ZhansayaSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 1. Разрешаем Swagger
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        // 2. РАЗРЕШАЕМ доступ к контроллеру авторизации (замени путь на свой, если он другой)
+                        // 2. РАЗРЕШАЕМ доступ к контроллеру авторизации
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/students/**").hasRole("ADMIN")
                         // 3. Все остальное защищаем
                         .anyRequest().authenticated()
+
                 )
-                // .httpBasic(Customizer.withDefaults()) // <-- УДАЛИ ИЛИ ЗАКОММЕНТИРУЙ ЭТУ СТРОКУ
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Так как мы используем JWT
                 );
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
