@@ -37,6 +37,7 @@ public class ZhansayaSecurityConfig {
                         // 2. РАЗРЕШАЕМ доступ к контроллеру авторизации
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/students/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/students/**").permitAll()
                         // 3. Все остальное защищаем
                         .anyRequest().authenticated()
 
