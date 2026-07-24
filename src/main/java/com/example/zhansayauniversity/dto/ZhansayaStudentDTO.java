@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import com.example.zhansayauniversity.entity.ZhansayaStudentProfile;
 
 @Data
 public class ZhansayaStudentDTO {
@@ -19,4 +20,8 @@ public class ZhansayaStudentDTO {
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is required")
     private String email;
+
+
+
+    private com.example.zhansayauniversity.entity.ZhansayaStudentProfile profile;
 }

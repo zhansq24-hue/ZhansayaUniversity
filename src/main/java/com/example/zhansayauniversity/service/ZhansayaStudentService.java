@@ -23,7 +23,13 @@ public class ZhansayaStudentService {
         student.setFirstName(dto.getFirstName());
         student.setLastName(dto.getLastName());
         student.setEmail(dto.getEmail());
+        if (dto.getProfile() != null) {
+            com.example.zhansayauniversity.entity.ZhansayaStudentProfile profile = dto.getProfile();
+            profile.setStudent(student); // Привязываем студента к профилю
+            student.setProfile(profile); // Привязываем профиль к студенту
+        }
         return studentRepository.save(student);
+
     }
 
     // 2. Метод для ОБНОВЛЕНИЯ (PUT)
@@ -33,6 +39,11 @@ public class ZhansayaStudentService {
         student.setFirstName(dto.getFirstName());
         student.setLastName(dto.getLastName());
         student.setEmail(dto.getEmail());
+        if (dto.getProfile() != null) {
+            com.example.zhansayauniversity.entity.ZhansayaStudentProfile profile = dto.getProfile();
+            profile.setStudent(student);
+            student.setProfile(profile);
+        }
         return studentRepository.save(student);
     }
 

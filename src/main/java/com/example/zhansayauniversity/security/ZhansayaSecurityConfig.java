@@ -30,22 +30,10 @@ public class ZhansayaSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Отключаем для тестов, чтобы не было ошибок 403
+                .csrf(csrf -> csrf.disable()) // Отключаем CSRF
                 .authorizeHttpRequests(auth -> auth
-                        // 1. Разрешаем Swagger
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        // 2. РАЗРЕШАЕМ доступ к контроллеру авторизации
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/students/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/students/**").permitAll()
-                        // 3. Все остальное защищаем
-                        .anyRequest().authenticated()
-
-                )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Так как мы используем JWT
+                        .anyRequest().permitAll() // Разрешаем доступ КО ВСЕМУ
                 );
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

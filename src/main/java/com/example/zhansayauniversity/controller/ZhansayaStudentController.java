@@ -16,32 +16,32 @@ public class ZhansayaStudentController {
 
     private final ZhansayaStudentService studentService;
 
-    // 1. GET - Получение всех
+    // GET - Получение всех
     @GetMapping
     public List<ZhansayaStudent> getAllStudents() {
         return studentService.getAllStudents();
     }
 
 
-    // 2. POST - Создание студента (Теперь по-настоящему!)
+    // POST - Создание студента (Теперь по-настоящему!)
     @PostMapping
     public ZhansayaStudent createStudent(@Valid @RequestBody ZhansayaStudentDTO studentDTO) {
         return studentService.createStudent(studentDTO); // Вызываем сервис для сохранения
     }
 
-    // 3. PUT - Обновление студента
+    // PUT - Обновление студента
     @PutMapping("/{id}")
     public ZhansayaStudent updateStudent(@PathVariable Long id, @Valid @RequestBody ZhansayaStudentDTO studentDTO) {
         return studentService.updateStudent(id, studentDTO); // Теперь обновляет в базе
     }
 
-    // 4. DELETE - Удаление студента
+    // DELETE - Удаление студента
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id); // Теперь реально удаляет из базы
     }
 
-    // --- ЭНДПОИНТ ДЛЯ ПАГИНАЦИИ ---
+    // ЭНДПОИНТ ДЛЯ ПАГИНАЦИИ
     @GetMapping("/paged")
     public org.springframework.data.domain.Page<ZhansayaStudent> getStudentsPaged(
             @org.springframework.web.bind.annotation.RequestParam(defaultValue = "0") int page,

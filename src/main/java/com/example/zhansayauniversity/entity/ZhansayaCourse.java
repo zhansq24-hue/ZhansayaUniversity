@@ -20,6 +20,6 @@ public class ZhansayaCourse {
     private String courseCode;
     private Integer credits;
     @ManyToMany(mappedBy = "courses")
-    @JsonIgnore // И здесь
+    @JsonIgnore
     private Set<ZhansayaStudent> students;
 }

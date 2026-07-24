@@ -1,21 +1,25 @@
 package com.example.zhansayauniversity.controller;
 
+import com.example.zhansayauniversity.util.util;
 import org.springframework.web.bind.annotation.*;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/api/tasks")
+@RestController // Говорит Spring, что в этом классе живут эндпоинты
+@RequestMapping("/api/tasks") // Базовый путь для всех запросов в этом контроллере
 public class TaskController {
 
-    // 1. Факториал числа (Задача №1)
-    @GetMapping("/factorial/{n}")
-    public long getFactorial(@PathVariable int n) {
-        long result = 1;
-        for (int i = 1; i <= n; i++) {
-            result *= i;
+    // Эндпоинт для факториала (теперь использует исправленный util)
+    @GetMapping("/factorial")
+    public String calculateFactorial(@RequestParam int number) {
+        if (number < 0) {
+            return "Ошибка: Число должно быть неотрицательным!";
         }
-        return result;
+        long res = util.factorial(number);
+        return "Результат факториала для числа " + number + ": " + res;
+    }
+
+    // Эндпоинт для проверки четности
+    @GetMapping("/is-even")
+    public String checkEven(@RequestParam int number) {
+        return (number % 2 == 0) ? "Четное" : "Нечетное";
     }
 }
